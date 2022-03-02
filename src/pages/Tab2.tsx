@@ -1,21 +1,20 @@
 import {
   IonContent,
+  IonGrid,
   IonHeader,
   IonPage,
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
-import "./Tab2.css";
+import Header from "../components/Header/Header";
 
 const Tab2: React.FC = () => {
   return (
     <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <IonTitle>Tab 2</IonTitle>
-        </IonToolbar>
-      </IonHeader>
-      <IonContent fullscreen></IonContent>
+      <Header />
+      <IonContent fullscreen>
+        <IonGrid fixed={true}></IonGrid>
+      </IonContent>
     </IonPage>
   );
 };

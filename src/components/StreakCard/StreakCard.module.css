@@ -1,0 +1,16 @@
+.card {
+  width: 100%;
+  max-width: 350px;
+  color: var(--ion-color-dark);
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.streak {
+  font-size: var(--ion-font-size-40);
+  font-weight: 500;
+}
+
+.quote {
+  font-size: 12px;
+}

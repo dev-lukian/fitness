@@ -1,0 +1,9 @@
+.titleRegular {
+  font-weight: 500;
+  font-size: var(--ion-font-size-20);
+}
+
+.titleBold {
+  font-weight: 700;
+  font-size: var(--ion-font-size-20);
+}

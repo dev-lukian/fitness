@@ -1,21 +1,9 @@
-import {
-  IonContent,
-  IonHeader,
-  IonPage,
-  IonTitle,
-  IonToolbar,
-  IonCard,
-  IonCardHeader,
-  IonCardSubtitle,
-  IonCardTitle,
-  IonCardContent,
-  IonGrid,
-  IonRow,
-  IonButton,
-} from "@ionic/react";
+import { IonContent, IonPage, IonGrid, IonRow } from "@ionic/react";
+import { calendar } from "ionicons/icons";
+import CardButton from "../components/CardButton/CardButton";
 import Header from "../components/Header/Header";
-import TodayBlock from "../components/TodayBlock/TodayBlock";
-import "./Tab1.css";
+import TodayCard from "../components/TodayCard/TodayCard";
+import StreakCard from "../components/StreakCard/StreakCard";
 
 const Tab1: React.FC = () => {
   return (
@@ -23,8 +11,19 @@ const Tab1: React.FC = () => {
       <Header />
       <IonContent fullscreen>
         <IonGrid fixed={true}>
-          <IonRow>
-            <TodayBlock />
+          <IonRow class="ion-justify-content-center">
+            <TodayCard />
+          </IonRow>
+          <IonRow class="ion-justify-content-center">
+            <StreakCard />
+          </IonRow>
+          <IonRow class="ion-justify-content-center">
+            <CardButton
+              function=""
+              icon={calendar}
+              titleRegular="View"
+              titleBold="Calendar"
+            />
           </IonRow>
         </IonGrid>
       </IonContent>
