@@ -6,6 +6,7 @@ import {
   IonIcon,
   IonRow,
 } from "@ionic/react";
+import cn from "classnames";
 import { chevronForwardOutline } from "ionicons/icons";
 import styles from "./Cardbutton.module.css";
 
@@ -17,7 +18,7 @@ const CardButton: React.FC<{
 }> = (props) => {
   return (
     <IonCard
-      className="card"
+      className={cn("card", "mobileWidth")}
       button={true}
       onClick={() => props.function(true)}
     >

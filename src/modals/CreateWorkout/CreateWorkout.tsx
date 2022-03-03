@@ -101,8 +101,8 @@ const CreateWorkout: React.FC<{
             exerciseCount={exerciseList.length}
           />
           <IonGrid fixed={true} className={styles.paddingBottom}>
-            <IonRow className="ion-justify-content-center">
-              <IonItem className="fields">
+            <IonRow>
+              <IonItem className={cn("fields", "mobileWidth")}>
                 <IonLabel>Workout Name</IonLabel>
                 <IonInput
                   value={workoutName}
@@ -110,8 +110,10 @@ const CreateWorkout: React.FC<{
                 ></IonInput>
               </IonItem>
             </IonRow>
-            <IonRow className="ion-justify-content-center">
-              <IonItem className={cn("fields", "ion-margin-top")}>
+            <IonRow>
+              <IonItem
+                className={cn("fields", "ion-margin-top", "mobileWidth")}
+              >
                 <IonLabel>Split Type</IonLabel>
                 <IonSelect
                   value={split}
@@ -129,7 +131,7 @@ const CreateWorkout: React.FC<{
                 </IonSelect>
               </IonItem>
             </IonRow>
-            <IonRow className={cn("ion-justify-content-center")}>
+            <IonRow className="ion-justify-content-center">
               <IonFab className={styles.fab}>
                 <IonFabButton onClick={() => setShowCreateExerciseModal(true)}>
                   <IonIcon icon={add} />
@@ -153,7 +155,7 @@ const CreateWorkout: React.FC<{
           </IonGrid>
           <IonButton
             expand="block"
-            className="fixedButton"
+            className={cn("fixedButton", "mobileWidth")}
             onClick={() => addWorkout(false)}
           >
             COMPLETE

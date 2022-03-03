@@ -12,6 +12,7 @@ import { useState } from "react";
 import CardButton from "../../components/CardButton/CardButton";
 import Header from "../../components/Header/Header";
 import CreateWorkout from "../../modals/CreateWorkout/CreateWorkout";
+import WorkoutItem from "../../components/WorkoutItem/WorkoutItem";
 import { Workout } from "../../types";
 import styles from "./Plan.module.css";
 
@@ -29,7 +30,7 @@ const Plan: React.FC = () => {
         <Header />
         <IonContent fullscreen>
           <IonGrid fixed={true}>
-            <IonRow className="ion-justify-content-center">
+            <IonRow>
               <CardButton
                 function={setShowCreateWorkoutModal}
                 icon="none"
@@ -37,7 +38,7 @@ const Plan: React.FC = () => {
                 titleBold="Workout"
               />
             </IonRow>
-            <IonRow className="ion-justify-content-center">
+            <IonRow>
               <CardButton
                 function=""
                 icon="none"
@@ -47,8 +48,9 @@ const Plan: React.FC = () => {
             </IonRow>
             <IonRow
               className={cn(
-                "ion-justify-content-center",
-                "ion-align-items-center"
+                "ion-align-items-center",
+                "mobileWidth",
+                "ion-padding-vertical"
               )}
             >
               <IonCol size="8">
@@ -64,6 +66,13 @@ const Plan: React.FC = () => {
                 />
               </IonCol>
             </IonRow>
+            {workoutList.map((workout: Workout, i: number) => {
+              return (
+                <IonRow key={i}>
+                  <WorkoutItem workout={workout} />
+                </IonRow>
+              );
+            })}
           </IonGrid>
         </IonContent>
       </IonPage>

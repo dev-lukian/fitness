@@ -242,22 +242,19 @@ http://ionicframework.com/docs/theming/ */
   }
 }
 
-.card {
+.mobileWidth {
   width: 100%;
   max-width: 350px;
+  margin: auto;
+}
+
+.card {
   color: var(--ion-color-dark);
   margin-top: 10px;
   margin-bottom: 10px;
 }
 
-.fields {
-  width: 100%;
-  max-width: 350px;
-}
-
 .fixedButton {
-  width: 100%;
-  max-width: 350px;
   position: fixed;
   bottom: 15px;
   left: 50%;

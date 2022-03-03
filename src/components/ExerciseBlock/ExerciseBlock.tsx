@@ -5,12 +5,6 @@ import {
   IonRow,
   IonCol,
   IonProgressBar,
-  IonItem,
-  IonLabel,
-  IonInput,
-  IonItemSliding,
-  IonItemOptions,
-  IonItemOption,
   IonAccordionGroup,
   IonAccordion,
 } from "@ionic/react";
@@ -22,7 +16,7 @@ const ExerciseBlock: React.FC<{ exercise: Exercise; order: number }> = (
   props
 ) => {
   return (
-    <IonCard className="card">
+    <IonCard className={cn("card", "mobileWidth")}>
       <IonCardContent>
         <IonAccordionGroup>
           <IonAccordion readonly={false}>

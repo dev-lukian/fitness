@@ -6,10 +6,11 @@ import {
   IonButton,
 } from "@ionic/react";
 import styles from "./TodayCard.module.css";
+import cn from "classnames";
 
 const TodayCard: React.FC = () => {
   return (
-    <IonCard className="card">
+    <IonCard className={cn("card", "mobileWidth")}>
       <IonCardHeader>
         <IonCardTitle className={styles.title}>Today's Workout</IonCardTitle>
       </IonCardHeader>

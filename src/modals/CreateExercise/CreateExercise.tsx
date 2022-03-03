@@ -1,8 +1,6 @@
 import {
   IonButton,
   IonContent,
-  IonFab,
-  IonFabButton,
   IonGrid,
   IonInput,
   IonItem,
@@ -87,7 +85,7 @@ const CreateExercise: React.FC<{
   };
 
   return (
-    <IonModal isOpen={props.showModal}>
+    <IonModal isOpen={props.showModal} animated={false}>
       <IonContent>
         <BackHeader
           resetFunction={resetState}
@@ -98,10 +96,11 @@ const CreateExercise: React.FC<{
             <IonSearchbar
               value={searchText}
               onIonChange={(e) => setSearchText(e.detail.value!)}
+              className="mobileWidth"
             ></IonSearchbar>
           </IonRow>
-          <IonRow className="ion-justify-content-center ion-margin-top">
-            <IonItem className="fields">
+          <IonRow className="ion-margin-top">
+            <IonItem className={cn("fields", "mobileWidth")}>
               <IonLabel>Exercise Name</IonLabel>
               <IonInput
                 value={exerciseName}
@@ -109,8 +108,8 @@ const CreateExercise: React.FC<{
               ></IonInput>
             </IonItem>
           </IonRow>
-          <IonRow className="ion-justify-content-center">
-            <IonItem className={cn("fields", "ion-margin-top")}>
+          <IonRow>
+            <IonItem className={cn("fields", "ion-margin-top", "mobileWidth")}>
               <IonLabel>Muscle Target</IonLabel>
               <IonSelect
                 multiple={true}
@@ -125,8 +124,8 @@ const CreateExercise: React.FC<{
               </IonSelect>
             </IonItem>
           </IonRow>
-          <IonRow className="ion-justify-content-center">
-            <IonItem className="fields">
+          <IonRow>
+            <IonItem className={cn("fields", "mobileWidth")}>
               <IonLabel>Sets</IonLabel>
               <IonInput
                 type="number"
@@ -135,8 +134,8 @@ const CreateExercise: React.FC<{
               ></IonInput>
             </IonItem>
           </IonRow>
-          <IonRow className="ion-justify-content-center">
-            <IonItem className="fields">
+          <IonRow>
+            <IonItem className={cn("fields", "mobileWidth")}>
               <IonLabel>Reps</IonLabel>
               <IonInput
                 type="number"
@@ -145,8 +144,8 @@ const CreateExercise: React.FC<{
               ></IonInput>
             </IonItem>
           </IonRow>
-          <IonRow className="ion-justify-content-center">
-            <IonItem className="fields">
+          <IonRow>
+            <IonItem className={cn("fields", "mobileWidth")}>
               <IonLabel>Rest Time</IonLabel>
               <IonInput
                 type="number"
@@ -156,7 +155,11 @@ const CreateExercise: React.FC<{
             </IonItem>
           </IonRow>
         </IonGrid>
-        <IonButton expand="block" className="fixedButton" onClick={addExercise}>
+        <IonButton
+          expand="block"
+          className={cn("fixedButton", "mobileWidth")}
+          onClick={addExercise}
+        >
           ADD
         </IonButton>
       </IonContent>

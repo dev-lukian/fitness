@@ -11,7 +11,7 @@ import cn from "classnames";
 
 const StreakCard: React.FC = () => {
   return (
-    <IonCard className="card">
+    <IonCard className={cn("card", "mobileWidth")}>
       <IonCardContent>
         <IonGrid>
           <IonRow className="ion-align-items-center">

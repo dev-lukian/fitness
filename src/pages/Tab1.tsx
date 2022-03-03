@@ -11,13 +11,13 @@ const Tab1: React.FC = () => {
       <Header />
       <IonContent fullscreen>
         <IonGrid fixed={true}>
-          <IonRow class="ion-justify-content-center">
+          <IonRow>
             <TodayCard />
           </IonRow>
-          <IonRow class="ion-justify-content-center">
+          <IonRow>
             <StreakCard />
           </IonRow>
-          <IonRow class="ion-justify-content-center">
+          <IonRow>
             <CardButton
               function=""
               icon={calendar}
