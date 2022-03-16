@@ -14,6 +14,7 @@ import {
 } from "@ionic/react";
 import { useState } from "react";
 import cn from "classnames";
+import { v4 as uuidv4 } from "uuid";
 import styles from "./CreateExercise.module.css";
 import BackHeader from "../../components/BackHeader/BackHeader";
 import { Exercise } from "../../types";
@@ -67,6 +68,7 @@ const CreateExercise: React.FC<{
     }
 
     const exercise: Exercise = {
+      id: uuidv4(),
       name: exerciseName,
       muscleTarget: muscleTarget!,
       sets: sets,

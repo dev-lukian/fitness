@@ -1,8 +1,20 @@
+.fabRow {
+  margin-top: 25px;
+}
+
 .paddingBottom {
   padding-bottom: 80px;
 }
 
 .fab {
   position: static;
-  margin-top: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.toggleWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

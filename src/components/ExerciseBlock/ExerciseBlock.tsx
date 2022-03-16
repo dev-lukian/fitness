@@ -12,14 +12,16 @@ import styles from "./ExerciseBlock.module.css";
 import cn from "classnames";
 import { Exercise } from "../../types";
 
-const ExerciseBlock: React.FC<{ exercise: Exercise; order: number }> = (
-  props
-) => {
+const ExerciseBlock: React.FC<{
+  exercise: Exercise;
+  order: number;
+  readOnly: boolean;
+}> = (props) => {
   return (
     <IonCard className={cn("card", "mobileWidth")}>
       <IonCardContent>
         <IonAccordionGroup>
-          <IonAccordion readonly={false}>
+          <IonAccordion readonly={props.readOnly}>
             <IonGrid slot="header">
               <IonRow className="ion-align-items-center">
                 <IonCol size="2">

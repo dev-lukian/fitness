@@ -1,4 +1,5 @@
 export interface Exercise {
+  id: string;
   name: string;
   muscleTarget: string[];
   sets: number;
