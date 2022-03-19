@@ -1,3 +1,29 @@
+.wrapper {
+  position: relative;
+}
+
+.overlay {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: auto;
+  z-index: 1;
+}
+
+.editButton {
+  position: relative;
+  left: -34px;
+  top: -16px;
+}
+
+.removeButton {
+  position: relative;
+  right: -34px;
+  top: -16px;
+}
+
 .exerciseTitle {
   font-size: var(--ion-font-size-16);
   font-weight: 500;

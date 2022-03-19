@@ -252,10 +252,12 @@ http://ionicframework.com/docs/theming/ */
   color: var(--ion-color-dark);
   margin-top: 10px;
   margin-bottom: 10px;
+  position: relative;
 }
 
 .fixedButton {
   position: fixed;
+  z-index: 100;
   bottom: 15px;
   left: 50%;
   transform: translateX(-50%);

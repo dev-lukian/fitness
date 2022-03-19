@@ -22,8 +22,6 @@ const Plan: React.FC = () => {
   const [workoutList, setWorkoutList] = useState<Workout[]>([]);
   const [drafts, setDrafts] = useState<boolean>();
 
-  console.log(workoutList);
-
   return (
     <>
       <IonPage>

@@ -22,8 +22,9 @@ import {
   createGesture,
   Gesture,
 } from "@ionic/react";
-import { add, link, swapVertical } from "ionicons/icons";
-import { useState } from "react";
+import { add, swapVertical } from "ionicons/icons";
+import { useEffect, useState } from "react";
+
 import cn from "classnames";
 import styles from "./CreateWorkout.module.css";
 import BackHeader from "../../components/BackHeader/BackHeader";
@@ -39,8 +40,7 @@ const CreateWorkout: React.FC<{
 }> = (props) => {
   const [error, setError] = useState<string>();
   const [draftAlert, setDraftAlert] = useState<boolean>(false);
-  const [superSetState, setSuperSetState] = useState<boolean>(false);
-  const [reorderState, setReorderState] = useState<boolean>(false);
+  const [remove, setRemove] = useState<number>(-1);
   const [workoutName, setWorkoutName] = useState<string>();
   const [split, setSplit] = useState<string>();
   const [showCreateExerciseModal, setShowCreateExerciseModal] =
@@ -121,6 +121,39 @@ const CreateWorkout: React.FC<{
     resetState();
   };
 
+  useEffect(() => {
+    if (remove !== -1) {
+      let newList = exerciseList.slice();
+      newList.splice(remove, 1);
+      setExerciseList(newList);
+      setRemove(-1);
+    }
+  }, [remove]);
+
+  // IONIC Gesture Long Press Attempt
+
+  // useEffect(() => {
+  //   let el = exerciseRef.current;
+  //   console.log(el);
+  //   if (el) {
+  //     const gesture = createGesture({
+  //       el: el,
+  //       threshold: 0,
+  //       gestureName: "long-press",
+  //       onStart: (detail) => {
+  //         console.log("long press");
+  //       },
+  //       onEnd: (detail) => {
+  //         console.log("end");
+  //       },
+  //     });
+
+  //     console.log(gesture);
+
+  //     gesture.enable();
+  //   }
+  // }, [exerciseList]);
+
   return (
     <>
       <IonModal isOpen={props.showModal}>
@@ -163,54 +196,35 @@ const CreateWorkout: React.FC<{
               </IonItem>
             </IonRow>
             <IonRow className={cn(styles.fabRow, "ion-justify-content-center")}>
-              <IonCol size="3.5" className="ion-align-self-center">
-                <div className={styles.toggleWrapper}>
-                  <IonIcon icon={link} size="small" />
-                  <IonToggle
-                    disabled={exerciseList.length < 2}
-                    checked={superSetState}
-                    onIonChange={(e) => setSuperSetState(e.detail.checked)}
-                  />
-                </div>
-              </IonCol>
-              <IonCol size="5">
-                <IonFab className={styles.fab}>
-                  <IonFabButton
-                    onClick={() => setShowCreateExerciseModal(true)}
-                  >
-                    <IonIcon icon={add} />
-                  </IonFabButton>
-                </IonFab>
-              </IonCol>
-              <IonCol size="3.5" className="ion-align-self-center">
-                <div className={styles.toggleWrapper}>
-                  <IonIcon icon={swapVertical} size="small" />
-                  <IonToggle
-                    disabled={exerciseList.length < 2}
-                    checked={reorderState}
-                    onIonChange={(e) => setReorderState(e.detail.checked)}
-                  />
-                </div>
-              </IonCol>
+              <IonFab className={styles.fab}>
+                <IonFabButton onClick={() => setShowCreateExerciseModal(true)}>
+                  <IonIcon icon={add} />
+                </IonFabButton>
+              </IonFab>
             </IonRow>
-            <IonReorderGroup
-              disabled={!reorderState}
-              onIonItemReorder={doReorder}
-            >
-              {exerciseList.map((exercise: Exercise, i: number) => {
-                return (
-                  <IonReorder key={exercise.id}>
-                    <IonRow className="ion-justify-content-center">
+            <IonRow className="ion-justify-content-center">
+              <IonReorderGroup
+                disabled={false}
+                onIonItemReorder={doReorder}
+                className="mobileWidth"
+              >
+                {exerciseList.map((exercise: Exercise, i: number) => {
+                  return (
+                    <div key={exercise.id} className={styles.reorderBlock}>
                       <ExerciseBlock
                         exercise={exercise}
                         order={i + 1}
                         readOnly={true}
+                        remove={setRemove}
                       />
-                    </IonRow>
-                  </IonReorder>
-                );
-              })}
-            </IonReorderGroup>
+                      <IonReorder slot="end" className="ion-margin-start">
+                        <IonIcon icon={swapVertical} size="small" />
+                      </IonReorder>
+                    </div>
+                  );
+                })}
+              </IonReorderGroup>
+            </IonRow>
           </IonGrid>
           <IonButton
             expand="block"
