@@ -1,0 +1,9 @@
+.paddingBottom {
+  padding-bottom: 80px;
+}
+
+.reorderBlock {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

@@ -18,9 +18,10 @@ import { arrowUndoCircle, removeCircle } from "ionicons/icons";
 import { useState } from "react";
 
 const ExerciseBlock: React.FC<{
-  exercise: Exercise;
+  exerciseBlock: Exercise[];
   order: number;
   readOnly: boolean;
+  edit: any;
   remove: any;
 }> = (props) => {
   const [overlay, setOverlay] = useState<boolean>(false);
@@ -40,7 +41,12 @@ const ExerciseBlock: React.FC<{
     <div className={cn("mobileWidth", styles.wrapper)}>
       {overlay && (
         <div className={styles.overlay}>
-          <IonButton color="medium" fill="clear" className={styles.editButton}>
+          <IonButton
+            color="medium"
+            fill="clear"
+            className={styles.editButton}
+            onClick={() => props.edit([props.exerciseBlock, props.order - 1])}
+          >
             <IonIcon icon={arrowUndoCircle} size="large" />
           </IonButton>
           <IonButton
@@ -58,26 +64,39 @@ const ExerciseBlock: React.FC<{
           <IonAccordionGroup>
             <IonAccordion readonly={props.readOnly}>
               <IonGrid slot="header">
-                <IonRow className="ion-align-items-center">
-                  <IonCol size="2">
-                    <div className={styles.leftIcon}>{props.order}</div>
-                  </IonCol>
-                  <IonCol className={styles.exerciseTitle} size="7">
-                    {props.exercise.name}
-                  </IonCol>
-                  <IonCol
-                    className={cn("ion-text-end", styles.exerciseInfo)}
-                    size="3"
-                  >
-                    <div>{props.exercise.sets} sets</div>
-                    <div>{props.exercise.reps} reps</div>
-                    <div>{props.exercise.restTime} secs</div>
-                  </IonCol>
-                </IonRow>
+                {props.exerciseBlock.map((exercise: Exercise, i: number) => {
+                  return (
+                    <IonRow
+                      className="ion-align-items-center"
+                      key={exercise.id}
+                    >
+                      <IonCol size="2">
+                        <div className={styles.leftIcon}>
+                          {props.order}
+                          {props.exerciseBlock.length > 1 && "." + (i + 1)}
+                        </div>
+                      </IonCol>
+                      <IonCol className={styles.exerciseTitle} size="7">
+                        {exercise.name}
+                      </IonCol>
+                      <IonCol
+                        className={cn("ion-text-end", styles.exerciseInfo)}
+                        size="3"
+                      >
+                        <div>{exercise.sets} sets</div>
+                        <div>{exercise.reps} reps</div>
+                        {i === props.exerciseBlock.length - 1 && (
+                          <div>{exercise.restTime} secs</div>
+                        )}
+                      </IonCol>
+                    </IonRow>
+                  );
+                })}
+
                 <IonProgressBar color="light" />
               </IonGrid>
 
-              <IonGrid slot="content">hi</IonGrid>
+              <IonGrid slot="content"></IonGrid>
             </IonAccordion>
           </IonAccordionGroup>
         </IonCardContent>

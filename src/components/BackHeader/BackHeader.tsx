@@ -12,16 +12,18 @@ import styles from "./BackHeader.module.css";
 
 const BackHeader: React.FC<{
   exitFunction: any;
-  resetFunction: any;
+  resetFunction?: any;
   alertFunction?: any;
   exerciseCount?: number;
 }> = (props) => {
   const exit = () => {
     if (props.alertFunction && props.exerciseCount! > 0) {
       props.alertFunction(true);
+    } else if (props.resetFunction) {
+      props.resetFunction();
+      props.exitFunction(false);
     } else {
       props.exitFunction(false);
-      props.resetFunction();
     }
   };
 
@@ -33,7 +35,7 @@ const BackHeader: React.FC<{
       <IonGrid>
         <IonRow className="ion-align-items-center">
           <IonCol>
-            <IonButton class="ion-no-padding" color="white" onClick={exit}>
+            <IonButton class="ion-no-padding" fill="clear" onClick={exit}>
               <IonIcon icon={chevronBack} color="medium" />
             </IonButton>
           </IonCol>

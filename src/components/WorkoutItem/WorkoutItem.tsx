@@ -12,8 +12,8 @@ const WorkoutItem: React.FC<{
       <div className={cn("ion-text-end", styles.workoutInfo)}>
         <IonLabel>{props.workout.split}</IonLabel>
         <IonLabel>
-          {props.workout.exercises.length} Exercise
-          {props.workout.exercises.length > 1 ? "s" : null}
+          {props.workout.exerciseBlocks.length} Exercise
+          {props.workout.exerciseBlocks.length > 1 ? "s" : null}
         </IonLabel>
       </div>
     </IonItem>

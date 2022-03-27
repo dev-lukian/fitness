@@ -1,7 +1,6 @@
 import {
   IonAlert,
   IonButton,
-  IonCol,
   IonContent,
   IonFab,
   IonFabButton,
@@ -17,10 +16,7 @@ import {
   IonSelect,
   IonSelectOption,
   IonToast,
-  IonToggle,
   ItemReorderEventDetail,
-  createGesture,
-  Gesture,
 } from "@ionic/react";
 import { add, swapVertical } from "ionicons/icons";
 import { useEffect, useState } from "react";
@@ -29,7 +25,7 @@ import cn from "classnames";
 import styles from "./CreateWorkout.module.css";
 import BackHeader from "../../components/BackHeader/BackHeader";
 import ExerciseBlock from "../../components/ExerciseBlock/ExerciseBlock";
-import CreateExercise from "../CreateExercise/CreateExercise";
+import CreateExerciseBlock from "../CreateExerciseBlock/CreateExerciseBlock";
 import { Exercise, Workout } from "../../types";
 
 const CreateWorkout: React.FC<{
@@ -41,35 +37,50 @@ const CreateWorkout: React.FC<{
   const [error, setError] = useState<string>();
   const [draftAlert, setDraftAlert] = useState<boolean>(false);
   const [remove, setRemove] = useState<number>(-1);
+  const [edit, setEdit] = useState<[Exercise[], number] | undefined>();
   const [workoutName, setWorkoutName] = useState<string>();
   const [split, setSplit] = useState<string>();
   const [showCreateExerciseModal, setShowCreateExerciseModal] =
     useState<boolean>(false);
-  const [exerciseList, setExerciseList] = useState<Exercise[]>([
-    {
-      id: "1075745745",
-      name: "Squats",
-      muscleTarget: ["legs"],
-      sets: 5,
-      reps: 5,
-      restTime: 5,
-    },
-    {
-      id: "942982498549",
-      name: "Bench",
-      muscleTarget: ["legs"],
-      sets: 5,
-      reps: 5,
-      restTime: 5,
-    },
-    {
-      id: "89127487",
-      name: "Shoulder Press",
-      muscleTarget: ["legs"],
-      sets: 5,
-      reps: 5,
-      restTime: 5,
-    },
+  const [exerciseBlockList, setExerciseBlockList] = useState<Exercise[][]>([
+    [
+      {
+        id: "1075745745",
+        name: "Squats",
+        muscleTarget: ["legs"],
+        sets: 5,
+        reps: 5,
+        restTime: 5,
+      },
+    ],
+    [
+      {
+        id: "942982498549",
+        name: "Bench",
+        muscleTarget: ["legs"],
+        sets: 5,
+        reps: 5,
+        restTime: 5,
+      },
+    ],
+    [
+      {
+        id: "11111111",
+        name: "Lateral Raises",
+        muscleTarget: ["legs"],
+        sets: 5,
+        reps: 5,
+        restTime: 5,
+      },
+      {
+        id: "222222222",
+        name: "Incline Bench Press",
+        muscleTarget: ["legs"],
+        sets: 5,
+        reps: 5,
+        restTime: 5,
+      },
+    ],
   ]);
 
   const doReorder = (event: CustomEvent<ItemReorderEventDetail>) => {
@@ -80,12 +91,12 @@ const CreateWorkout: React.FC<{
     // Finish the reorder and position the item in the DOM based on
     // where the gesture ended. This method can also be called directly
     // by the reorder group
-    let newList = exerciseList.slice();
+    let newList = exerciseBlockList.slice();
     let temp = newList[event.detail.from];
     newList[event.detail.from] = newList[event.detail.to];
     newList[event.detail.to] = temp;
     console.log(newList);
-    setExerciseList(newList);
+    setExerciseBlockList(newList);
 
     event.detail.complete();
   };
@@ -94,7 +105,7 @@ const CreateWorkout: React.FC<{
     setWorkoutName("");
     setSplit("");
     setError("");
-    setExerciseList([]);
+    setExerciseBlockList([]);
   };
 
   const addWorkout = (draft: boolean) => {
@@ -103,15 +114,15 @@ const CreateWorkout: React.FC<{
       return;
     }
 
-    if (exerciseList.length === 0) {
-      setError("You must add at least 1 exercise");
+    if (exerciseBlockList.length === 0) {
+      setError("You must add at least 1 exercise block");
       return;
     }
 
     const workout: Workout = {
       name: workoutName,
       split: split,
-      exercises: exerciseList,
+      exerciseBlocks: exerciseBlockList,
       draft: draft,
     };
 
@@ -123,36 +134,18 @@ const CreateWorkout: React.FC<{
 
   useEffect(() => {
     if (remove !== -1) {
-      let newList = exerciseList.slice();
+      let newList = exerciseBlockList.slice();
       newList.splice(remove, 1);
-      setExerciseList(newList);
+      setExerciseBlockList(newList);
       setRemove(-1);
     }
   }, [remove]);
 
-  // IONIC Gesture Long Press Attempt
-
-  // useEffect(() => {
-  //   let el = exerciseRef.current;
-  //   console.log(el);
-  //   if (el) {
-  //     const gesture = createGesture({
-  //       el: el,
-  //       threshold: 0,
-  //       gestureName: "long-press",
-  //       onStart: (detail) => {
-  //         console.log("long press");
-  //       },
-  //       onEnd: (detail) => {
-  //         console.log("end");
-  //       },
-  //     });
-
-  //     console.log(gesture);
-
-  //     gesture.enable();
-  //   }
-  // }, [exerciseList]);
+  useEffect(() => {
+    if (edit !== undefined) {
+      setShowCreateExerciseModal(true);
+    }
+  }, [edit]);
 
   return (
     <>
@@ -162,7 +155,7 @@ const CreateWorkout: React.FC<{
             exitFunction={props.setShowModal}
             resetFunction={resetState}
             alertFunction={setDraftAlert}
-            exerciseCount={exerciseList.length}
+            exerciseCount={exerciseBlockList.length}
           />
           <IonGrid fixed={true} className={styles.paddingBottom}>
             <IonRow>
@@ -208,21 +201,27 @@ const CreateWorkout: React.FC<{
                 onIonItemReorder={doReorder}
                 className="mobileWidth"
               >
-                {exerciseList.map((exercise: Exercise, i: number) => {
-                  return (
-                    <div key={exercise.id} className={styles.reorderBlock}>
-                      <ExerciseBlock
-                        exercise={exercise}
-                        order={i + 1}
-                        readOnly={true}
-                        remove={setRemove}
-                      />
-                      <IonReorder slot="end" className="ion-margin-start">
-                        <IonIcon icon={swapVertical} size="small" />
-                      </IonReorder>
-                    </div>
-                  );
-                })}
+                {exerciseBlockList.map(
+                  (exerciseBlock: Exercise[], i: number) => {
+                    return (
+                      <div
+                        key={exerciseBlock[0].id}
+                        className={styles.reorderBlock}
+                      >
+                        <ExerciseBlock
+                          exerciseBlock={exerciseBlock}
+                          order={i + 1}
+                          readOnly={true}
+                          edit={setEdit}
+                          remove={setRemove}
+                        />
+                        <IonReorder slot="end" className="ion-margin-start">
+                          <IonIcon icon={swapVertical} size="small" />
+                        </IonReorder>
+                      </div>
+                    );
+                  }
+                )}
               </IonReorderGroup>
             </IonRow>
           </IonGrid>
@@ -269,11 +268,13 @@ const CreateWorkout: React.FC<{
           ]}
         />
       </IonModal>
-      <CreateExercise
+      <CreateExerciseBlock
         showModal={showCreateExerciseModal}
         setShowModal={setShowCreateExerciseModal}
-        exerciseList={exerciseList}
-        setExerciseList={setExerciseList}
+        exerciseBlockList={exerciseBlockList}
+        setExerciseBlockList={setExerciseBlockList}
+        editBlock={edit}
+        setEditBlock={setEdit}
       />
     </>
   );
