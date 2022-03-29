@@ -1,3 +1,21 @@
+.workoutTitleWrapper {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.workoutTitle {
+  font-size: var(--ion-font-size-20);
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.buttonGroup {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+}
+
 .fabRow {
   margin-top: 25px;
 }
@@ -17,4 +35,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.editButtonWrapper {
+  display: flex;
 }

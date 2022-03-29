@@ -23,11 +23,14 @@ const ExerciseBlock: React.FC<{
   readOnly: boolean;
   edit: any;
   remove: any;
+  workoutMode: any;
 }> = (props) => {
   const [overlay, setOverlay] = useState<boolean>(false);
 
   const onLongPress = () => {
-    setOverlay(!overlay);
+    if (!(props.workoutMode === "view")) {
+      setOverlay(!overlay);
+    }
   };
 
   const longPressOptions = {

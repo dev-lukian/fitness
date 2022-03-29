@@ -8,6 +8,7 @@ export interface Exercise {
 }
 
 export interface Workout {
+  id: string;
   name: string | undefined;
   split: string | undefined;
   exerciseBlocks: Exercise[][];
@@ -19,3 +20,5 @@ export interface formsFunctions {
   resetState(): void;
   createExercise(): Exercise;
 }
+
+export type Mode = "view" | "edit" | "create";
