@@ -43,12 +43,12 @@ const CreateExerciseBlock: React.FC<{
     props.setEditBlock();
   };
 
-  const addExercise = async (edit: boolean) => {
+  const addExercise = (edit: boolean) => {
     let stop = false;
 
     for (let i = 0; i < formsRef.current.length; i++) {
       try {
-        await formsRef.current[i].errorCheck();
+        formsRef.current[i].errorCheck();
       } catch (e) {
         console.log(e);
         stop = true;
@@ -62,7 +62,7 @@ const CreateExerciseBlock: React.FC<{
     let exerciseBlock: Exercise[] = [];
 
     for (let i = 0; i < formsRef.current.length; i++) {
-      exercise = await formsRef.current[i].createExercise();
+      exercise = formsRef.current[i].createExercise();
       exerciseBlock = [...exerciseBlock, exercise];
     }
 
@@ -86,7 +86,6 @@ const CreateExerciseBlock: React.FC<{
   }, [forms]);
 
   useEffect(() => {
-    console.log(forms);
     if (props.editBlock) {
       let newForms: string[] = [];
       for (let i = 0; i < props.editBlock[0].length; i++) {
