@@ -20,8 +20,8 @@ const BackHeader: React.FC<{
     if (props.alertFunction && props.exerciseCount! > 0) {
       props.alertFunction(true);
     } else if (props.resetFunction) {
-      props.resetFunction();
       props.exitFunction(false);
+      setTimeout(props.resetFunction, 200);
     } else {
       props.exitFunction(false);
     }
@@ -35,7 +35,12 @@ const BackHeader: React.FC<{
       <IonGrid>
         <IonRow className="ion-align-items-center">
           <IonCol>
-            <IonButton class="ion-no-padding" fill="clear" onClick={exit}>
+            <IonButton
+              class="ion-no-padding"
+              fill="clear"
+              color="medium"
+              onClick={exit}
+            >
               <IonIcon icon={chevronBack} color="medium" />
             </IonButton>
           </IonCol>
