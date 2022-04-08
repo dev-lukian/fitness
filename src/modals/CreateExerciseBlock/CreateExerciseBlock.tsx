@@ -18,6 +18,7 @@ import ExerciseForm from "../../components/ExerciseForm/ExerciseForm";
 import { swapVertical } from "ionicons/icons";
 
 const CreateExerciseBlock: React.FC<{
+  parentModal: any;
   showModal: boolean;
   setShowModal: any;
   exerciseBlockList: Exercise[][];
@@ -100,7 +101,13 @@ const CreateExerciseBlock: React.FC<{
   }, [props.showModal]);
 
   return (
-    <IonModal isOpen={props.showModal} animated={false}>
+    <IonModal
+      mode="ios"
+      isOpen={props.showModal}
+      onDidDismiss={() => props.setShowModal(false)}
+      presentingElement={props.parentModal.current}
+      swipeToClose={true}
+    >
       <IonContent>
         <BackHeader
           exitFunction={props.setShowModal}
@@ -123,16 +130,16 @@ const CreateExerciseBlock: React.FC<{
             );
           })}
         </IonGrid>
-        <IonButton
-          expand="block"
-          className={cn("fixedButton", "mobileWidth")}
-          onClick={
-            props.editBlock ? () => addExercise(true) : () => addExercise(false)
-          }
-        >
-          {props.editBlock ? "EDIT" : "ADD"}
-        </IonButton>
       </IonContent>
+      <IonButton
+        expand="block"
+        className={cn("fixedButton", "mobileWidth")}
+        onClick={
+          props.editBlock ? () => addExercise(true) : () => addExercise(false)
+        }
+      >
+        {props.editBlock ? "EDIT" : "ADD"}
+      </IonButton>
 
       <IonToast
         isOpen={!!error}

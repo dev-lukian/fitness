@@ -12,13 +12,16 @@ import { useState } from "react";
 import CardButton from "../../components/CardButton/CardButton";
 import Header from "../../components/Header/Header";
 import CreateWorkout from "../../modals/CreateWorkout/CreateWorkout";
+import SetupWeek from "../../modals/SetupWeek/SetupWeek";
 import WorkoutItem from "../../components/WorkoutItem/WorkoutItem";
 import { Workout } from "../../types";
 import styles from "./Plan.module.css";
 
 const Plan: React.FC = () => {
+  const [test, setTest] = useState<boolean>(true);
   const [showCreateWorkoutModal, setShowCreateWorkoutModal] =
     useState<boolean>(false);
+  const [showSetupWeekModal, setShowSetupWeekModal] = useState<boolean>(false);
   const [clickedWorkout, setClickedWorkout] = useState<Workout>();
   const [workoutList, setWorkoutList] = useState<Workout[]>([
     {
@@ -118,7 +121,11 @@ const Plan: React.FC = () => {
 
   return (
     <>
-      <IonPage>
+      <IonPage
+        className={
+          showCreateWorkoutModal || showSetupWeekModal ? styles.blur : undefined
+        }
+      >
         <Header />
         <IonContent fullscreen>
           <IonGrid fixed={true}>
@@ -132,7 +139,7 @@ const Plan: React.FC = () => {
             </IonRow>
             <IonRow>
               <CardButton
-                function=""
+                function={setShowSetupWeekModal}
                 icon="none"
                 titleRegular="Setup"
                 titleBold="Weekly Split"
@@ -181,6 +188,11 @@ const Plan: React.FC = () => {
         setWorkoutList={setWorkoutList}
         clickedWorkout={clickedWorkout}
         setClickedWorkout={setClickedWorkout}
+      />
+      <SetupWeek
+        showModal={showSetupWeekModal}
+        setShowModal={setShowSetupWeekModal}
+        workoutList={workoutList}
       />
     </>
   );

@@ -20,7 +20,7 @@ import {
   ItemReorderEventDetail,
 } from "@ionic/react";
 import { add, swapVertical } from "ionicons/icons";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { v4 as uuidv4 } from "uuid";
 import cn from "classnames";
 import styles from "./CreateWorkout.module.css";
@@ -28,6 +28,7 @@ import BackHeader from "../../components/BackHeader/BackHeader";
 import ExerciseBlock from "../../components/ExerciseBlock/ExerciseBlock";
 import CreateExerciseBlock from "../CreateExerciseBlock/CreateExerciseBlock";
 import { Exercise, Workout, Mode } from "../../types";
+const axios = require("axios");
 
 const CreateWorkout: React.FC<{
   showModal: boolean;
@@ -50,6 +51,7 @@ const CreateWorkout: React.FC<{
   const [showCreateExerciseModal, setShowCreateExerciseModal] =
     useState<boolean>(false);
   const [exerciseBlockList, setExerciseBlockList] = useState<Exercise[][]>([]);
+  const parentModal = useRef<any>();
 
   const doReorder = (event: CustomEvent<ItemReorderEventDetail>) => {
     // The `from` and `to` properties contain the index of the item
@@ -97,6 +99,18 @@ const CreateWorkout: React.FC<{
       draft: draft,
     };
 
+    axios
+      .post("", {
+        firstName: "Fred",
+        lastName: "Flintstone",
+      })
+      .then(function (response: any) {
+        console.log(response);
+      })
+      .catch(function (error: any) {
+        console.log(error);
+      });
+
     const newList = props.workoutList.concat(workout);
     props.setWorkoutList(newList);
     props.setShowModal(false);
@@ -143,7 +157,13 @@ const CreateWorkout: React.FC<{
 
   return (
     <>
-      <IonModal isOpen={props.showModal}>
+      <IonModal
+        mode="ios"
+        isOpen={props.showModal}
+        onDidDismiss={() => props.setShowModal(false)}
+        showBackdrop={true}
+        ref={parentModal}
+      >
         <IonContent>
           <BackHeader
             exitFunction={props.setShowModal}
@@ -156,7 +176,7 @@ const CreateWorkout: React.FC<{
               <>
                 <IonRow>
                   <IonItem className={cn("fields", "mobileWidth")}>
-                    <IonLabel>Workout Name</IonLabel>
+                    <IonLabel position="stacked">Workout Name</IonLabel>
                     <IonInput
                       value={workoutName}
                       onIonChange={(e) => setWorkoutName(e.detail.value!)}
@@ -167,7 +187,7 @@ const CreateWorkout: React.FC<{
                   <IonItem
                     className={cn("fields", "ion-margin-top", "mobileWidth")}
                   >
-                    <IonLabel>Split Type</IonLabel>
+                    <IonLabel position="stacked">Split Type</IonLabel>
                     <IonSelect
                       value={split}
                       placeholder="Select One"
@@ -267,18 +287,18 @@ const CreateWorkout: React.FC<{
               </IonReorderGroup>
             </IonRow>
           </IonGrid>
-          {workoutMode === "edit" || workoutMode === "create" ? (
-            <IonButton
-              expand="block"
-              className={cn("fixedButton", "mobileWidth")}
-              onClick={
-                workoutMode === "create" ? () => addWorkout(false) : editWorkout
-              }
-            >
-              {workoutMode === "create" ? "COMPLETE" : "UPDATE"}
-            </IonButton>
-          ) : null}
         </IonContent>
+        {workoutMode === "edit" || workoutMode === "create" ? (
+          <IonButton
+            expand="block"
+            className={cn("fixedButton", "mobileWidth")}
+            onClick={
+              workoutMode === "create" ? () => addWorkout(false) : editWorkout
+            }
+          >
+            {workoutMode === "create" ? "COMPLETE" : "UPDATE"}
+          </IonButton>
+        ) : null}
 
         <IonToast
           isOpen={!!error}
@@ -315,6 +335,7 @@ const CreateWorkout: React.FC<{
         />
       </IonModal>
       <CreateExerciseBlock
+        parentModal={parentModal}
         showModal={showCreateExerciseModal}
         setShowModal={setShowCreateExerciseModal}
         exerciseBlockList={exerciseBlockList}

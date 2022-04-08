@@ -1,3 +1,19 @@
+.blur {
+  animation-name: blurDelay;
+  animation-duration: 0ms;
+  animation-delay: 500ms;
+  animation-fill-mode: forwards;
+}
+
+@keyframes blurDelay {
+  from {
+    filter: blur(0px);
+  }
+  to {
+    filter: blur(500px);
+  }
+}
+
 .workoutWrapper {
   margin-top: 16px;
   background-color: var(--ion-color-light);

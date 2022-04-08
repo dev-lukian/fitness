@@ -1,0 +1,8 @@
+.paddingBottom {
+  padding-bottom: 80px;
+}
+
+.menu {
+  --width: 100%;
+  --max-width: 260px;
+}

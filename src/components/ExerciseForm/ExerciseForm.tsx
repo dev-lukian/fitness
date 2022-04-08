@@ -113,7 +113,7 @@ const ExerciseForm: React.ForwardRefRenderFunction<
     <>
       <IonRow className="ion-margin-top">
         <IonItem className={cn("fields", "mobileWidth")}>
-          <IonLabel>Exercise Name</IonLabel>
+          <IonLabel position="stacked">Exercise Name</IonLabel>
           <IonInput
             value={exerciseName}
             onIonChange={(e) => setExerciseName(e.detail.value!)}
@@ -122,7 +122,7 @@ const ExerciseForm: React.ForwardRefRenderFunction<
       </IonRow>
       <IonRow>
         <IonItem className={cn("fields", "ion-margin-top", "mobileWidth")}>
-          <IonLabel>Muscle Target</IonLabel>
+          <IonLabel position="stacked">Muscle Target</IonLabel>
           <IonSelect
             multiple={true}
             value={muscleTarget}
@@ -138,7 +138,7 @@ const ExerciseForm: React.ForwardRefRenderFunction<
       </IonRow>
       <IonRow>
         <IonItem className={cn("fields", "mobileWidth")}>
-          <IonLabel>Sets</IonLabel>
+          <IonLabel position="stacked">Sets</IonLabel>
           <IonInput
             type="number"
             value={sets}
@@ -148,7 +148,7 @@ const ExerciseForm: React.ForwardRefRenderFunction<
       </IonRow>
       <IonRow>
         <IonItem className={cn("fields", "mobileWidth")}>
-          <IonLabel>Reps</IonLabel>
+          <IonLabel position="stacked">Reps</IonLabel>
           <IonInput
             type="number"
             value={reps}
@@ -161,7 +161,7 @@ const ExerciseForm: React.ForwardRefRenderFunction<
           className={cn("fields", "mobileWidth")}
           disabled={!(props.i === props.forms.length - 1)}
         >
-          <IonLabel>Rest Time</IonLabel>
+          <IonLabel position="stacked">Rest Time</IonLabel>
           <IonInput
             type="number"
             value={restTime}

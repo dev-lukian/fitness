@@ -13,8 +13,8 @@ import { pencil, remove } from "ionicons/icons";
 
 const WorkoutItem: React.FC<{
   workout: Workout;
-  setShowCreateWorkoutModal: any;
-  setClickedWorkout: any;
+  setShowCreateWorkoutModal?: any;
+  setClickedWorkout?: any;
 }> = (props) => {
   const moreInfo = () => {
     props.setClickedWorkout(props.workout);
@@ -38,7 +38,13 @@ const WorkoutItem: React.FC<{
         shape="round"
         button={true}
         detailIcon="none"
-        onClick={moreInfo}
+        onClick={
+          props.setClickedWorkout
+            ? moreInfo
+            : () => {
+                console.log("clicked");
+              }
+        }
       >
         <IonLabel>{props.workout.name}</IonLabel>
         <div className={cn("ion-text-end", styles.workoutInfo)}>
