@@ -71,7 +71,7 @@ const ExerciseBlock: React.FC<{
                   return (
                     <IonRow
                       className="ion-align-items-center"
-                      key={exercise.id}
+                      key={exercise._id}
                     >
                       <IonCol size="2">
                         <div className={styles.leftIcon}>
@@ -86,10 +86,10 @@ const ExerciseBlock: React.FC<{
                         className={cn("ion-text-end", styles.exerciseInfo)}
                         size="3"
                       >
-                        <div>{exercise.sets} sets</div>
-                        <div>{exercise.reps} reps</div>
+                        <div>{exercise.sets.length} sets</div>
+                        <div>{exercise.sets[0].reps} reps</div>
                         {i === props.exerciseBlock.length - 1 && (
-                          <div>{exercise.restTime} secs</div>
+                          <div>{exercise.sets[0].rest} secs</div>
                         )}
                       </IonCol>
                     </IonRow>

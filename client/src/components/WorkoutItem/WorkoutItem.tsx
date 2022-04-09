@@ -13,16 +13,22 @@ import { pencil, remove } from "ionicons/icons";
 
 const WorkoutItem: React.FC<{
   workout: Workout;
+  setClickedWorkout: any;
   setShowCreateWorkoutModal?: any;
-  setClickedWorkout?: any;
+  setShowLinkedWorkoutModal?: any;
 }> = (props) => {
-  const moreInfo = () => {
+  const click = () => {
     props.setClickedWorkout(props.workout);
-    props.setShowCreateWorkoutModal(true);
+    if (props.setShowCreateWorkoutModal) {
+      props.setShowCreateWorkoutModal(true);
+    }
+    if (props.setShowLinkedWorkoutModal) {
+      props.setShowLinkedWorkoutModal(false);
+    }
   };
 
   return (
-    <IonItemSliding>
+    <IonItemSliding disabled={!props.setShowCreateWorkoutModal}>
       <IonItemOptions side="start">
         <IonItemOption onClick={() => console.log("edit")} color="medium">
           <IonIcon slot="icon-only" icon={pencil} />
@@ -38,17 +44,11 @@ const WorkoutItem: React.FC<{
         shape="round"
         button={true}
         detailIcon="none"
-        onClick={
-          props.setClickedWorkout
-            ? moreInfo
-            : () => {
-                console.log("clicked");
-              }
-        }
+        onClick={click}
       >
         <IonLabel>{props.workout.name}</IonLabel>
         <div className={cn("ion-text-end", styles.workoutInfo)}>
-          <IonLabel>{props.workout.split}</IonLabel>
+          <IonLabel>{props.workout.splitType}</IonLabel>
           <IonLabel>
             {props.workout.exerciseBlocks.length} Exercise
             {props.workout.exerciseBlocks.length > 1 ? "s" : null}

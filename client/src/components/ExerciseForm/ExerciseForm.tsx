@@ -13,7 +13,7 @@ import { useState, useImperativeHandle, forwardRef, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import cn from "classnames";
 import styles from "./ExerciseForm.module.css";
-import { Exercise, formsFunctions } from "../../types";
+import { Exercise, formsFunctions, set } from "../../types";
 
 const ExerciseForm: React.ForwardRefRenderFunction<
   formsFunctions,
@@ -62,13 +62,23 @@ const ExerciseForm: React.ForwardRefRenderFunction<
   };
 
   const createExercise = () => {
+    let setArray: set[] = [];
+
+    for (let i = 0; i < sets!; i++) {
+      let newSet: set = {
+        reps: reps!,
+        weight: undefined,
+        rest: restTime!,
+      };
+
+      setArray = [...setArray, newSet];
+    }
+
     const exercise: Exercise = {
-      id: props.forms[props.i],
+      _id: props.forms[props.i],
       name: exerciseName!,
       muscleTarget: muscleTarget!,
-      sets: sets!,
-      reps: reps!,
-      restTime: restTime!,
+      sets: setArray!,
     };
 
     return exercise;
@@ -99,9 +109,9 @@ const ExerciseForm: React.ForwardRefRenderFunction<
     if (props.edit !== undefined) {
       setExerciseName(props.edit.name);
       setMuscleTarget(props.edit.muscleTarget);
-      setSets(props.edit.sets);
-      setReps(props.edit.reps);
-      setRestTime(props.edit.restTime);
+      setSets(props.edit.sets.length);
+      setReps(props.edit.sets[0].reps);
+      setRestTime(props.edit.sets[0].rest);
     }
 
     return () => {

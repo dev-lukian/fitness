@@ -92,22 +92,20 @@ const CreateWorkout: React.FC<{
     }
 
     const workout: Workout = {
-      id: uuidv4(),
+      _id: uuidv4(),
       name: workoutName,
-      split: split,
       exerciseBlocks: exerciseBlockList,
+      splitType: split,
       draft: draft,
     };
 
     axios
-      .post("", {
-        firstName: "Fred",
-        lastName: "Flintstone",
-      })
+      .post("/api/workout", workout)
       .then(function (response: any) {
         console.log(response);
       })
       .catch(function (error: any) {
+        console.log(workout);
         console.log(error);
       });
 
@@ -118,7 +116,7 @@ const CreateWorkout: React.FC<{
   };
 
   const deleteWorkout = () => {
-    let i = props.workoutList.findIndex((workout) => workout.id === workoutID);
+    let i = props.workoutList.findIndex((workout) => workout._id === workoutID);
     let newList = props.workoutList.slice();
     newList.splice(i, 1);
     props.setWorkoutList(newList);
@@ -145,11 +143,10 @@ const CreateWorkout: React.FC<{
   }, [editBlock]);
 
   useEffect(() => {
-    console.log(props.clickedWorkout);
     if (props.clickedWorkout) {
-      setWorkoutID(props.clickedWorkout.id);
+      setWorkoutID(props.clickedWorkout._id);
       setWorkoutName(props.clickedWorkout.name);
-      setSplit(props.clickedWorkout.split);
+      setSplit(props.clickedWorkout.splitType);
       setExerciseBlockList(props.clickedWorkout.exerciseBlocks);
       setWorkoutMode("view");
     }
@@ -262,28 +259,26 @@ const CreateWorkout: React.FC<{
                 onIonItemReorder={doReorder}
                 className="mobileWidth"
               >
-                {exerciseBlockList.map(
-                  (exerciseBlock: Exercise[], i: number) => {
-                    return (
-                      <div
-                        key={exerciseBlock[0].id}
-                        className={styles.reorderBlock}
-                      >
-                        <ExerciseBlock
-                          exerciseBlock={exerciseBlock}
-                          order={i + 1}
-                          readOnly={true}
-                          edit={setEditBlock}
-                          remove={setRemoveBlock}
-                          workoutMode={workoutMode}
-                        />
-                        <IonReorder slot="end" className="ion-margin-start">
-                          <IonIcon icon={swapVertical} size="small" />
-                        </IonReorder>
-                      </div>
-                    );
-                  }
-                )}
+                {exerciseBlockList.map((exerciseBlock: any, i: number) => {
+                  return (
+                    <div
+                      key={exerciseBlock[0]._id}
+                      className={styles.reorderBlock}
+                    >
+                      <ExerciseBlock
+                        exerciseBlock={exerciseBlock}
+                        order={i + 1}
+                        readOnly={true}
+                        edit={setEditBlock}
+                        remove={setRemoveBlock}
+                        workoutMode={workoutMode}
+                      />
+                      <IonReorder slot="end" className="ion-margin-start">
+                        <IonIcon icon={swapVertical} size="small" />
+                      </IonReorder>
+                    </div>
+                  );
+                })}
               </IonReorderGroup>
             </IonRow>
           </IonGrid>

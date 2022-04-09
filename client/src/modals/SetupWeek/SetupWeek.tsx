@@ -32,6 +32,7 @@ const SetupWeek: React.FC<{
     useState<boolean>(false);
   const [startDate, setStartDate] = useState<string>();
   const [duration, setDuration] = useState<number>();
+  const [clickedWorkout, setClickedWorkout] = useState<Workout>();
   const parentModal = useRef<any>();
 
   const days: string[] = [
@@ -112,6 +113,7 @@ const SetupWeek: React.FC<{
         setShowModal={setShowLinkWorkoutModal}
         parentModal={parentModal}
         workoutList={props.workoutList}
+        setClickedWorkout={setClickedWorkout}
       />
     </>
   );

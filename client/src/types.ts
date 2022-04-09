@@ -1,16 +1,20 @@
+export interface set {
+  reps: number;
+  weight: number | undefined;
+  rest: number | undefined;
+}
+
 export interface Exercise {
-  id: string;
+  _id: string;
   name: string;
   muscleTarget: string[];
-  sets: number;
-  reps: number;
-  restTime: number | undefined;
+  sets: set[];
 }
 
 export interface Workout {
-  id: string;
+  _id: string;
   name: string | undefined;
-  split: string | undefined;
+  splitType: string | undefined;
   exerciseBlocks: Exercise[][];
   draft: boolean;
 }

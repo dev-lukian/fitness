@@ -11,6 +11,7 @@ const LinkWorkout: React.FC<{
   setShowModal: any;
   parentModal: any;
   workoutList: Workout[];
+  setClickedWorkout: any;
 }> = (props) => {
   return (
     <>
@@ -27,7 +28,11 @@ const LinkWorkout: React.FC<{
             {props.workoutList.map((workout: Workout, i: number) => {
               return (
                 <IonRow key={i} className="mobileWidth">
-                  <WorkoutItem workout={workout} />
+                  <WorkoutItem
+                    workout={workout}
+                    setClickedWorkout={props.setClickedWorkout}
+                    setShowLinkedWorkoutModal={props.setShowModal}
+                  />
                 </IonRow>
               );
             })}

@@ -90,7 +90,7 @@ const CreateExerciseBlock: React.FC<{
     if (props.editBlock) {
       let newForms: string[] = [];
       for (let i = 0; i < props.editBlock[0].length; i++) {
-        newForms = [...newForms, props.editBlock[0][i].id];
+        newForms = [...newForms, props.editBlock[0][i]._id];
       }
       console.log(newForms);
       setForms(newForms);
