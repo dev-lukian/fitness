@@ -1,10 +1,9 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const DBCluster = process.env.DATABASE;
 // const DBLocal = process.env.DATABASE_LOCAL;
 
 let DB_URL = DBCluster;
-// let DB_URL = '***REMOVED***'
 
 // DB_URL = DB_URL.replace('<PASSWORD>', process.env.DATABASE_PASSWORD);
 // DB_URL = DB_URL.replace('<DB_NAME>', process.env.DB_NAME);
@@ -15,7 +14,7 @@ let DB_URL = DBCluster;
 console.log(`DB_URL`, DB_URL);
 
 module.exports = () => {
-  console.log('connecting to DB...');
+  console.log("connecting to DB...");
   mongoose
     .connect(DB_URL, {
       useNewUrlParser: true,
@@ -25,7 +24,7 @@ module.exports = () => {
     })
     .then(() => console.log(`DB connection successful!`.blue.bold))
     .catch((err) => {
-      console.log('DB Connection Failed !');
+      console.log("DB Connection Failed !");
       console.log(`err`, err);
     });
 };
