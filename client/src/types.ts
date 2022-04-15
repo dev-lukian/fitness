@@ -5,14 +5,13 @@ export interface set {
 }
 
 export interface Exercise {
-  _id: string;
   name: string;
   muscleTarget: string[];
   sets: set[];
 }
 
 export interface Workout {
-  _id: string;
+  id?: string;
   name: string | undefined;
   splitType: string | undefined;
   exerciseBlocks: Exercise[][];

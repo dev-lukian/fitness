@@ -2,10 +2,6 @@ const mongoose = require("mongoose");
 const validator = require("validator");
 
 const workoutSchema = new mongoose.Schema({
-  _id: {
-    type: String,
-    required: [true, "Give the workout a unique ID."],
-  },
   name: {
     type: String,
     required: [true, "Give the workout a name."],
@@ -16,10 +12,6 @@ const workoutSchema = new mongoose.Schema({
   exerciseBlocks: [
     [
       {
-        _id: {
-          type: String,
-          required: [true, "Give the exercise a unique ID."],
-        },
         name: {
           type: String,
           required: [true, "Give the excercise a name"],

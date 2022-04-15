@@ -5,7 +5,6 @@ const AppError = require("./../utils/appError");
 
 exports.createWorkout = catchAsync(async (req, res, next) => {
   const newWorkout = await Workout.create({
-    _id: req.body._id,
     name: req.body.name,
     exerciseBlocks: req.body.exerciseBlocks,
     splitType: req.body.splitType,

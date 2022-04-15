@@ -30,9 +30,17 @@ const Plan: React.FC = () => {
 
   useEffect(() => {
     axios
-      .get("/api/workout/6250d85d464b7c7755c8c680")
+      .get("/api/workout/6258dc6a1a1a76e3820c5c6e")
       .then(function (response: any) {
-        // setWorkoutList([response.data.workout]);
+        console.log(response.data.workout);
+        const workout: Workout = {
+          id: response.data.workout._id,
+          name: response.data.workout.name,
+          exerciseBlocks: response.data.workout.exerciseBlocks,
+          splitType: response.data.workout.splitType,
+          draft: response.data.workout.draft,
+        };
+        setWorkoutList([workout]);
       })
       .catch(function (error: any) {
         console.log(error);
@@ -105,7 +113,7 @@ const Plan: React.FC = () => {
                   </IonRow>
                   {workoutList.map((workout: any, i: number) => {
                     return (
-                      <IonRow key={workout._id} className="mobileWidth">
+                      <IonRow key={workout.id} className="mobileWidth">
                         <WorkoutItem
                           workout={workout}
                           setShowCreateWorkoutModal={setShowCreateWorkoutModal}

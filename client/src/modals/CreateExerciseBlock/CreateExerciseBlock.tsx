@@ -15,7 +15,7 @@ import styles from "./CreateExerciseBlock.module.css";
 import BackHeader from "../../components/BackHeader/BackHeader";
 import { Exercise, formsFunctions } from "../../types";
 import ExerciseForm from "../../components/ExerciseForm/ExerciseForm";
-import { swapVertical } from "ionicons/icons";
+const hash = require("object-hash");
 
 const CreateExerciseBlock: React.FC<{
   parentModal: any;
@@ -90,7 +90,7 @@ const CreateExerciseBlock: React.FC<{
     if (props.editBlock) {
       let newForms: string[] = [];
       for (let i = 0; i < props.editBlock[0].length; i++) {
-        newForms = [...newForms, props.editBlock[0][i]._id];
+        newForms = [...newForms, hash(props.editBlock[0][i])];
       }
       console.log(newForms);
       setForms(newForms);

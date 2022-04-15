@@ -21,13 +21,13 @@ import {
 } from "@ionic/react";
 import { add, swapVertical } from "ionicons/icons";
 import { useEffect, useState, useRef } from "react";
-import { v4 as uuidv4 } from "uuid";
 import cn from "classnames";
 import styles from "./CreateWorkout.module.css";
 import BackHeader from "../../components/BackHeader/BackHeader";
 import ExerciseBlock from "../../components/ExerciseBlock/ExerciseBlock";
 import CreateExerciseBlock from "../CreateExerciseBlock/CreateExerciseBlock";
 import { Exercise, Workout, Mode } from "../../types";
+const hash = require("object-hash");
 const axios = require("axios");
 
 const CreateWorkout: React.FC<{
@@ -92,7 +92,6 @@ const CreateWorkout: React.FC<{
     }
 
     const workout: Workout = {
-      _id: uuidv4(),
       name: workoutName,
       exerciseBlocks: exerciseBlockList,
       splitType: split,
@@ -105,7 +104,6 @@ const CreateWorkout: React.FC<{
         console.log(response);
       })
       .catch(function (error: any) {
-        console.log(workout);
         console.log(error);
       });
 
@@ -116,7 +114,7 @@ const CreateWorkout: React.FC<{
   };
 
   const deleteWorkout = () => {
-    let i = props.workoutList.findIndex((workout) => workout._id === workoutID);
+    let i = props.workoutList.findIndex((workout) => workout.id === workoutID);
     let newList = props.workoutList.slice();
     newList.splice(i, 1);
     props.setWorkoutList(newList);
@@ -144,7 +142,7 @@ const CreateWorkout: React.FC<{
 
   useEffect(() => {
     if (props.clickedWorkout) {
-      setWorkoutID(props.clickedWorkout._id);
+      setWorkoutID(props.clickedWorkout.id);
       setWorkoutName(props.clickedWorkout.name);
       setSplit(props.clickedWorkout.splitType);
       setExerciseBlockList(props.clickedWorkout.exerciseBlocks);
@@ -262,7 +260,7 @@ const CreateWorkout: React.FC<{
                 {exerciseBlockList.map((exerciseBlock: any, i: number) => {
                   return (
                     <div
-                      key={exerciseBlock[0]._id}
+                      key={hash(exerciseBlock)}
                       className={styles.reorderBlock}
                     >
                       <ExerciseBlock

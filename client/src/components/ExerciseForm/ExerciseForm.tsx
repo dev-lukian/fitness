@@ -75,7 +75,6 @@ const ExerciseForm: React.ForwardRefRenderFunction<
     }
 
     const exercise: Exercise = {
-      _id: props.forms[props.i],
       name: exerciseName!,
       muscleTarget: muscleTarget!,
       sets: setArray!,

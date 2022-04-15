@@ -16,6 +16,7 @@ import { Exercise } from "../../types";
 import { useLongPress } from "react-use";
 import { arrowUndoCircle, removeCircle } from "ionicons/icons";
 import { useState } from "react";
+const hash = require("object-hash");
 
 const ExerciseBlock: React.FC<{
   exerciseBlock: Exercise[];
@@ -71,7 +72,7 @@ const ExerciseBlock: React.FC<{
                   return (
                     <IonRow
                       className="ion-align-items-center"
-                      key={exercise._id}
+                      key={hash(exercise)}
                     >
                       <IonCol size="2">
                         <div className={styles.leftIcon}>
